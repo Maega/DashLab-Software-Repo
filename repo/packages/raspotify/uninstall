@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Purge package
+apt purge raspotify
+
+# Delete repo
+rm /etc/apt/sources.list.d/raspotify.list
+
+# Delete APT key
+rm /usr/share/keyrings/raspotify_key.asc
+
+# Refresh sources
+apt update
