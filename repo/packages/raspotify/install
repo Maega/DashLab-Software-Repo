@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# * Raspotify Install Script *
+# ? This script will add the Raspotify apt repo, install the package via apt and add some lines to the raspotify config file
+# ? 1. Adds Raspotify APT key
+# ? 2. Adds Raspotify APT repo to sources.list.d/
+# ? 3. Installs 'raspotify' package via APT
+# ? 4. Adds device name to Raspotify config at /etc/raspotify/conf
+
 # Requires:
 # libc6, systemd, libasound2, alsa-utils, libpulse0, init-system-helpers
 # ? All should already be installed in a stock RPiOS install except libpulse0...
