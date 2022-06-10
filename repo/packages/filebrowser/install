@@ -41,13 +41,13 @@ rm -rf .temp
 cd /opt/filebrowser
 
 # Create new config
-filebrowser config init
+./filebrowser config init
 
 # Set new config parameters
-filebrowser config set -a 0.0.0.0 -p 8084 -r /home/dashlab
+./filebrowser config set -a 0.0.0.0 -p 8084 -r /home/dashlab
 
 # Set new FileBrowser login credentials (replace these with variables like GLOBAL_USER and GLOBAL_PASS)
-filebrowser users add "dashlab" "dashlab" --perm.admin
+./filebrowser users add "dashlab" "dashlab" --perm.admin
 
 # Set install directory permissions
 chown -R dashlab:dashlab /opt/filebrowser
