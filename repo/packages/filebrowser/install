@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# * FileBrowser Install Script *
+# ? This script will download the latest release of FileBrowser, install it to the /opt/filebrowser directory and create a service.
+# ? 1. Downloads latest release from GitHub
+# ? 2. Extracts and installs binary to /opt/filebrowser
+# ? 3. Creates FileBrowser configuration
+# ? 4. Creates service to launch at boot
+
+# **** START INSTALLATION ****
+
+# Check if already installed, if so exit with code 17 (a.k.a: File already exists)
+[[ -d '/opt/filebrowser' ]] && exit 17
+
+# Set working directory
+mkdir .temp
+cd .temp
+
+# Download latest release from GitHub
+curl -L "https://github.com/filebrowser/filebrowser/releases/latest/download/linux-arm64-filebrowser.tar.gz" --output filebrowser.tar.gz
+
+# Extract binary from tarball
+tar -xf filebrowser.tar.gz filebrowser
+
+# Make binary executable
+chmod +x filebrowser
+
+# Create install directory
+mkdir /opt/filebrowser
+
+# Move binary to install directory
+mv filebrowser /opt/filebrowser/
+
+# Clear working directory
+cd ../
+rm -rf .temp
+
+# **** START CONFIGURATION ****
+
+# Change to install directory
+cd /opt/filebrowser
+
+# Create new config
+filebrowser config init
+
+# Set new config parameters
+filebrowser config set -a 0.0.0.0 -p 8084 -r /home/dashlab
+
+# Set new FileBrowser login credentials (replace these with variables like GLOBAL_USER and GLOBAL_PASS)
+filebrowser users add "dashlab" "dashlab" --perm.admin
+
+# Set install directory permissions
+chown -R dashlab:dashlab /opt/filebrowser
+
+# Create system service to launch at boot
+cat << '_EOF_' > /etc/systemd/system/filebrowser.service
+[Unit]
+Description=File Browser (DashLab)
+Documentation=https://filebrowser.org/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=dashlab
+UMask=002
+ExecStart=/opt/filebrowser/filebrowser -d /opt/filebrowser/filebrowser.db
+
+[Install]
+WantedBy=multi-user.target
+_EOF_
