@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Purge package
-apt purge raspotify
+apt purge -y raspotify
 
 # Delete repo
 rm /etc/apt/sources.list.d/raspotify.list
