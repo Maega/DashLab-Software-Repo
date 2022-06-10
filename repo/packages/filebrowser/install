@@ -68,3 +68,7 @@ ExecStart=/opt/filebrowser/filebrowser -d /opt/filebrowser/filebrowser.db
 [Install]
 WantedBy=multi-user.target
 _EOF_
+
+# Enable and start service
+systemctl enable filebrowser
+systemctl start filebrowser

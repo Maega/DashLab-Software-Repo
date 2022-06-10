@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Disable and stop service
+systemctl disable filebrowser
+systemctl stop filebrowser

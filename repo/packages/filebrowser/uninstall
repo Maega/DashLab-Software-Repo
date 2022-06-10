@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Disable and stop service
+systemctl disable filebrowser
+systemctl stop filebrowser
+
+# Delete service
+rm /etc/systemd/system/filebrowser.service
+
+# Delete install directory
+rm -rf /opt/filebrowser
