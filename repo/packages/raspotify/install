@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Requires:
+# libc6, systemd, libasound2, alsa-utils, libpulse0, init-system-helpers
+# ? All should already be installed in a stock RPiOS install except libpulse0...
+
+# APT key
+curl -sSL https://dtcooper.github.io/raspotify/key.asc | tee /usr/share/keyrings/raspotify_key.asc > /dev/null
+chmod 644 /usr/share/keyrings/raspotify_key.asc
+
+# Add repo
+echo "deb [signed-by=/usr/share/keyrings/raspotify_key.asc] https://dtcooper.github.io/raspotify raspotify main" | tee /etc/apt/sources.list.d/raspotify.list
+
+# Install package
+apt update
+apt install -y libc6 libasound2 alsa-utils libpulse0 raspotify
+
+# Configure
+echo -e '\nDEVICE_NAME="DashLab"' >>/etc/raspotify/conf
+echo -e 'LIBRESPOT_NAME="DashLab"' >>/etc/raspotify/conf
+systemctl restart raspotify

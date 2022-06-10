@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Enable and start service
+systemctl enable raspotify
+systemctl start raspotify
