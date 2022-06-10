@@ -1,0 +1,15 @@
+[
+    {
+        "package": "filebrowser",
+        "name": "File Browser",
+        "description": "Browse files on your DashLab from the web",
+        "launchUrl": "$HOST:8084",
+        "config": {}
+    },
+    {
+        "package": "raspotify",
+        "name": "Raspotify",
+        "description": "Turn DashLab into a Spotify Connect player",
+        "config": {}
+    }
+]
