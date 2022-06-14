@@ -17,9 +17,11 @@ mkdir .temp
 cd .temp
 
 # Download latest release from GitHub
+echo 'Downloading package...'
 curl -L "https://github.com/filebrowser/filebrowser/releases/latest/download/linux-arm64-filebrowser.tar.gz" --output filebrowser.tar.gz
 
 # Extract binary from tarball
+echo 'Installing package...'
 tar -xf filebrowser.tar.gz filebrowser
 
 # Make binary executable
@@ -41,6 +43,7 @@ rm -rf .temp
 cd /opt/filebrowser
 
 # Create new config
+echo 'Configuring package...'
 ./filebrowser config init
 
 # Set new config parameters
@@ -53,6 +56,7 @@ cd /opt/filebrowser
 chown -R dashlab:dashlab /opt/filebrowser
 
 # Create system service to launch at boot
+echo 'Creating service...'
 cat << '_EOF_' > /etc/systemd/system/filebrowser.service
 [Unit]
 Description=File Browser (DashLab)
@@ -72,3 +76,5 @@ _EOF_
 # Enable and start service
 systemctl enable filebrowser
 systemctl start filebrowser
+
+echo 'Installation complete'
